@@ -228,6 +228,22 @@ export class TitlebarPart extends Part implements ITitleService {
 			}))) {
 				return `${folderPath}/${activeEditorMedium}`;
 			}
+		} else if (titleTemplate === '${activeEditorLong}' && process.platform === 'win32') {
+			var regex = /[/\\]/g;
+			if (!regex.test(labels.template(titleTemplate, {
+				activeEditorShort,
+				activeEditorLong,
+				activeEditorMedium,
+				rootName,
+				rootPath,
+				folderName,
+				folderPath,
+				dirty,
+				appName,
+				separator: { label: separator }
+			}))) {
+				return `${folderPath}\\${activeEditorMedium}`;
+			}
 		}
 
 		return labels.template(titleTemplate, {
